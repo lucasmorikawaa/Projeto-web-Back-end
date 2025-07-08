@@ -1,31 +1,10 @@
-version: '3.8'
-
 services:
-  proxy:
+  app:
     image: 'jc21/nginx-proxy-manager:latest'
-    container_name: proxy
     restart: unless-stopped
     ports:
-      - '80:80'
       - '81:81'
       - '443:443'
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
-
-  cadastro-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: cadastro-backend
-    restart: unless-stopped
-    expose:
-      - '8080'
-    environment:
-      - NODE_ENV=production  
-    networks:
-      - npm-network
-
-networks:
-  npm-network:
-    driver: bridge
